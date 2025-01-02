@@ -9,11 +9,11 @@ function Navbar() {
     <img src={logo} className='h-full w-full' alt='logo'></img>
 </div>
     <ul className="flex flex-col h-1/2  ">
-    <li className="pl-8 py-2 hover:bg-blue-800 hover:text-white  " ><Link to='/'> <Gauge className='inline h-5 mb-1 mr-2'/>  Dashboard</Link> </li>
-        <li className="pl-8 py-2 hover:bg-blue-800  hover:text-white"> <Link to='/tasks'> <ListTodo className='inline h-5 mb-1 mr-2'/> Tasks</Link> </li>
-        <li className="pl-8 py-2 hover:bg-blue-800  hover:text-white">  <Link to='/calendar'>  <CalendarDays className='inline h-5 mb-1 mr-2'/> Calendar</Link></li>
-        <li className="pl-8 py-2 hover:bg-blue-800  hover:text-white">  <Link to='/payroll'>   <CircleDollarSign className='inline h-5 mb-1 mr-2' />Payroll</Link></li>
-        <li className="pl-8 py-2 hover:bg-blue-800  hover:text-white"><Link to='/invoice'>  <ReceiptText  className='inline h-5 mb-1 mr-2'/> Invoice</Link></li>
+    <li className="pl-8 py-2 hover:bg-blue-800 hover:text-white  " ><Link to='/dashboard'> <Gauge className='inline h-5 mb-1 mr-2'/>  Dashboard</Link> </li>
+        <li className="pl-8 py-2 hover:bg-blue-800  hover:text-white"> <Link to='/dashboard/tasks'> <ListTodo className='inline h-5 mb-1 mr-2'/> Tasks</Link> </li>
+        <li className="pl-8 py-2 hover:bg-blue-800  hover:text-white">  <Link to='/dashboard/calendar'>  <CalendarDays className='inline h-5 mb-1 mr-2'/> Calendar</Link></li>
+        <li className="pl-8 py-2 hover:bg-blue-800  hover:text-white">  <Link to='/dashboard/payroll'>   <CircleDollarSign className='inline h-5 mb-1 mr-2' />Payroll</Link></li>
+        <li className="pl-8 py-2 hover:bg-blue-800  hover:text-white"><Link to='/dashboard/invoice'>  <ReceiptText  className='inline h-5 mb-1 mr-2'/> Invoice</Link></li>
         
     </ul>
 </nav>
