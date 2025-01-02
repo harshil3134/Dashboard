@@ -19,8 +19,7 @@ function App() {
         <Route exact path='/' element={<Dashboard />} />
         <Route path='/tasks' element={<Tasks />} />
         <Route path='/calendar' element={<Calendar />} />
-        <Route path='/payroll' element={<Tasks />} />
-                
+        <Route path='/payroll' element={<Tasks />} />       
       </Routes>
     </BrowserRouter>
   </div>

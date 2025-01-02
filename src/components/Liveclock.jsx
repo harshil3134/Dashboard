@@ -22,7 +22,7 @@ return()=>clearInterval(intervalId);
     const timeString=time.toLocaleTimeString();
     const dateString=time.toLocaleDateString(undefined,options);
   return (
-    <div className="flex flex-row mx-6 font-bold text-blue-800">
+    <div className="flex flex-row mx-6 font-medium font-serif text-blue-800">
        
         <div className="pr-6">
             <span>{timeString}</span>
