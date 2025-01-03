@@ -4,7 +4,7 @@ import {Link} from "react-router-dom"
 
 function Navbar() {
   return (
-<nav className="bg-nav_bg w-2/12 h-screen pt-5 text-xl  ">
+<nav className="bg-nav_bg w-2/12 h-full pt-5 text-xl  fixed  ">
 <div className='h-14 w-20 mx-3 mb-9 ml-8'>
     <img src={logo} className='h-full w-full' alt='logo'></img>
 </div>

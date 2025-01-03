@@ -3,12 +3,14 @@ import Liveclock from "./Liveclock.jsx"
 import Search from "./Search.jsx"
 import Navbar from "./Navbar.jsx"
 import { ArrowLeftToLine,ArrowRightToLine } from 'lucide-react';
+import { Bar } from "react-chartjs-2";
+import {Chart as ChartJs} from 'chart.js/auto';
 
 function Dashboard() {
   return (<>
-      <Navbar />
+      <Navbar className="h-full" />
       
-    <div className="w-full h-full flex flex-col ">
+    <div className="w-full h-full flex flex-col pl-72 ml-6">
 
    
           <div className="w-full py-5 flex flex-row gap-8">
@@ -137,6 +139,26 @@ function Dashboard() {
                 </div>
 
            </div>
+
+         <div className="flex flex-row mx-8 my-9">
+          <div className="w-2/5 h-48">
+          <Bar 
+            data={{
+              labels:['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
+              datasets:[
+              {
+                label:"Tasks Completed",
+                data:[12,19,3,5,2,3,4],
+                borderWidth: 1
+              }
+              ],
+            }
+            }/>
+          </div>
+        
+
+           
+          </div> 
 
     </div>
     </>
