@@ -5,12 +5,30 @@ import Navbar from "./Navbar.jsx"
 import { ArrowLeftToLine,ArrowRightToLine } from 'lucide-react';
 import { Bar } from "react-chartjs-2";
 import {Chart as ChartJs} from 'chart.js/auto';
+import { useContext } from "react";
+import { AuthContext } from "../App.jsx";
+import { useNavigate } from "react-router-dom";
+
 
 function Dashboard() {
+const {isAuthenticated,logout}=useContext(AuthContext)
+const navigate=useNavigate()
+
+  const handlelogout=()=>{
+    if(isAuthenticated)
+    {
+        logout()
+        navigate("/login")
+       
+    }
+   
+}
+
+
   return (<>
       <Navbar className="h-full" />
       
-    <div className="w-full h-full flex flex-col pl-72 ml-6">
+    <div className="w-full h-full flex flex-col pl-72 ml-8">
 
    
           <div className="w-full py-5 flex flex-row gap-8">
@@ -23,6 +41,8 @@ function Dashboard() {
               </div>
                <div className="w-full pl-10  flex justify-center">
                   <User />
+                  <button className="px-4 py-2 w-fit h-fit bg-gray-200 mx-8 rounded-lg" onClick={()=>handlelogout()} >Logout</button>
+
                </div>
             
           </div>

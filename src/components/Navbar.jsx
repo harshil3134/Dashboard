@@ -1,4 +1,4 @@
-import { Gauge,ListTodo,CalendarDays,CircleDollarSign,ReceiptText  } from 'lucide-react';
+import { Gauge,ListTodo,CalendarDays,CircleDollarSign,Plus  } from 'lucide-react';
 import logo from "../assets/logo.jpg"
 import {Link} from "react-router-dom"
 
@@ -13,7 +13,7 @@ function Navbar() {
         <li className="pl-8 py-2 hover:bg-blue-800  hover:text-white"> <Link to='/dashboard/tasks'> <ListTodo className='inline h-5 mb-1 mr-2'/> Tasks</Link> </li>
         <li className="pl-8 py-2 hover:bg-blue-800  hover:text-white">  <Link to='/dashboard/calendar'>  <CalendarDays className='inline h-5 mb-1 mr-2'/> Calendar</Link></li>
         <li className="pl-8 py-2 hover:bg-blue-800  hover:text-white">  <Link to='/dashboard/payroll'>   <CircleDollarSign className='inline h-5 mb-1 mr-2' />Payroll</Link></li>
-        <li className="pl-8 py-2 hover:bg-blue-800  hover:text-white"><Link to='/dashboard/invoice'>  <ReceiptText  className='inline h-5 mb-1 mr-2'/> Invoice</Link></li>
+        <li className="pl-8 py-2 hover:bg-blue-800  hover:text-white"><Link to='/dashboard/add_employee'>  <Plus  className='inline h-5 mb-1 mr-2'/>Add Employee </Link></li>
         
     </ul>
 </nav>
