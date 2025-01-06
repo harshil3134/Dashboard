@@ -1,7 +1,7 @@
 import { CircleArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 function AddEmployee() {
   const [Formdata, setFormData] = useState({
@@ -9,11 +9,13 @@ function AddEmployee() {
     email: "",
     password: "",
     dob: "",
-    gender: "male",
+    gender: "",
     marital_status: "Single",
     hobby: [],
     file: null,
   });
+
+
 
   const filechange = (e) => {
     setFormData((Formdata) => ({ ...Formdata, file: e.target.files[0] }));
@@ -21,6 +23,8 @@ function AddEmployee() {
 
   const submitform = (e) => {
     e.preventDefault();
+    if(document.getElementById())
+
    validator();
   };
   const validator = () => {
@@ -28,9 +32,9 @@ function AddEmployee() {
   };
 
   const validatonforsubmit = () => {
-       console.log("call performed")
-    if (Formdata.name == "") {
       
+    if (Formdata.name == "") {
+
       document.getElementById("namev1").style.display = "block";
     }
     if (Formdata.email == "") {
@@ -41,7 +45,7 @@ function AddEmployee() {
      
       document.getElementById("passwordv1").style.display = "block";
     }
-    if (Formdata.hobby == "") {
+    if (Formdata.hobby.length==0) {
       
       document.getElementById("hobbyv1").style.display = "block";
     }
@@ -53,53 +57,57 @@ function AddEmployee() {
       
        document.getElementById("filev1").style.display = "block";
      }
+     if(Formdata.gender=="")
+     {
+      document.getElementById("genderv1").style.display="block";
+     }
      
      
   };
-  const removevalidation = () => {
-       console.log("print",Formdata.name)
+  const removevalidation = useCallback(() => {
+
        if (Formdata.name != "") {
          
-         document.getElementById("namev1").style.display = "hidden";
+         document.getElementById("namev1").style.display = "none";
        }
        if (Formdata.email != "") {
         
-         document.getElementById("emailv1").style.display = "hidden";
+         document.getElementById("emailv1").style.display = "none";
        }
        if (Formdata.password != "") {
         
-         document.getElementById("passwordv1").style.display = "hidden";
+         document.getElementById("passwordv1").style.display = "none";
        }
-       if (Formdata.hobby != "") {
+     
+       if (Formdata.hobby.length>0) {
          
-         document.getElementById("hobbyv1").style.display = "hidden";
+         document.getElementById("hobbyv1").style.display = "none";
        }
        if (Formdata.dob != "") {
          
-          document.getElementById("dobv1").style.display = "hidden";
+          document.getElementById("dobv1").style.display = "none";
         }
         if (Formdata.file != null) {
          
-          document.getElementById("filev1").style.display = "hidden";
+          document.getElementById("filev1").style.display = "none";
         }
+        if(Formdata.gender!="")
+          {
+           document.getElementById("genderv1").style.display="none";
+          }
         
         
-     };
+     },[Formdata])
+     
 
   const handleonChange = (e) => {
     const key = e.target.name;
 
-    if (
-      key == "name" ||
-      key == "email" ||
-      key == "password" ||
-      key == "gender" ||
-      key == "dob" ||
-      key == "marital_status"
-    ) {
+    
       setFormData((Formdata) => ({ ...Formdata, [key]: e.target.value }));
       console.log("e.target.value printed", Formdata.key);
-    }
+    
+
   };
   const handlecheckbox = (e) => {
     // onChange={(e) => setFormData((Formdata)=>({...Formdata,hobby:([...Formdata.hobby,e.target.value])}))}
@@ -119,10 +127,100 @@ function AddEmployee() {
       };
     });
 
+
+
   };
+
+  const namevalidation=(e)=>{
+    const regex1=/^[a-zA-Z][a-zA-Z0-9!@#$%^&*(),.?":{}|<>+-=_]{3,20}$/
+
+    const regex=/[^a-zA-z]/
+
+    document.getElementById("namev3").style.display = "none";
+    document.getElementById("namev2").style.display = "none";
+
+
+const iscorrlen=!regex1.test(e.target.value)
+const ischar=regex.test(e.target.value)
+    if(iscorrlen)
+    {
+      document.getElementById("namev3").style.display = "block";
+    }
+    
+    else if(ischar)
+    {
+      document.getElementById("namev2").style.display = "block";
+    }
+
+ 
+
+
+
+  }
+
+  const passwordvalidation=(e)=>{
+const regex1=/^[a-zA-Z][a-zA-Z0-9!@#$%^&*(),.?":{}|<>+-=_]{7,23}$/
+const regex2=/[a-zA-Z]/
+const regex3=/[!@#$%^&*(),.?:{}|<>+-=_]/
+const regex4=/[0-9]/
+const value=e.target.value
+
+
+document.getElementById("passwordv2").style.display = "none";
+document.getElementById("passwordv3").style.display = "none";
+document.getElementById("passwordv4").style.display = "none";
+document.getElementById("passwordv5").style.display = "none";
+
+
+const islen=regex1.test(value)
+const ischar=regex2.test(value)
+const isspecialchar=regex3.test(value)
+const isnum=regex4.test(value)
+
+
+if(!islen)
+{
+  document.getElementById("passwordv2").style.display = "block";
+}
+else if(!ischar)
+{
+  document.getElementById("passwordv3").style.display = "block";
+}
+else if(!isspecialchar)
+{
+  document.getElementById("passwordv4").style.display = "block";
+}
+else if(!isnum)
+{
+  document.getElementById("passwordv5").style.display = "block";
+}
+
+
+  }
+
+  const emailvalidaion=(e)=>{
+
+    const regex=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    const value=e.target.value
+
+    const isvalid=regex.test(value)
+
+    document.getElementById("emailv2").style.display = "none";
+
+    if(!isvalid)
+    {
+      document.getElementById("emailv2").style.display = "block";
+    }
+  }
+
+
+
+  
+
   useEffect(() => {
     console.log(Formdata);
-  }, [Formdata]);
+    removevalidation()
+  }, [Formdata,removevalidation]);
 
   return (
     <div className="h-full w-full">
@@ -150,12 +248,18 @@ function AddEmployee() {
                   name="name"
                   className="bg-gray-100 p-3 border-b-2"
                   value={Formdata.name}
-                  onChange={(e) => handleonChange(e)}
+                  onChange={(e) => {handleonChange(e); namevalidation(e);}}
                   placeholder="John James"
                 />
-                <div className="h-5 text-red-500 mt-1">
+                <div className="h-5 text-red-500 mt-1 leading-tight">
                   <h3 className="hidden" id="namev1">
                     Please Enter the Name
+                  </h3>
+                  <h3 className="hidden" id="namev2">
+                    Name should have only characters              
+                </h3>
+                  <h3 className="hidden" id="namev3">
+                  Name length should be between 4 and 21 characters
                   </h3>
                 </div>
               </div>
@@ -167,12 +271,24 @@ function AddEmployee() {
                   className="bg-gray-100 p-3 border-b-2"
                   name="password"
                   value={Formdata.password}
-                  onChange={(e) => handleonChange(e)}
+                  onChange={(e) => {handleonChange(e);passwordvalidation(e) }}
                   placeholder="password"
                 />
-                <div className="h-5 text-red-500 mt-1">
+                <div className="h-5 text-red-500 mt-1 leading-tight">
                   <h3 className="hidden" id="passwordv1">
                     Please Enter the Password
+                  </h3>
+                  <h3 className="hidden" id="passwordv2">
+                    Password length should be between 8 to 24 characters
+                  </h3>
+                  <h3 className="hidden" id="passwordv3">
+                    Password should contain atleast one characters
+                  </h3>
+                  <h3 className="hidden" id="passwordv4">
+                    Password should contain atleast one special character
+                  </h3>
+                  <h3 className="hidden" id="passwordv5">
+                    Password should contain atleast one number
                   </h3>
                 </div>
               </div>
@@ -209,7 +325,11 @@ function AddEmployee() {
                     />
                   </div>
                 </div>
-                <div className="h-5 text-red-500 mt-1"></div>
+                <div className="h-5 text-red-500 mt-1 ">
+                <h3 className="hidden " id="genderv1">
+                    Please Select a Gender
+                  </h3>
+                  </div>
               </div>
               <div className="flex flex-col  w-3/4">
                 <label className="my-1 text-xl ">Hobby</label>
@@ -274,12 +394,15 @@ function AddEmployee() {
                   className="bg-gray-100 p-3 border-b-2"
                   name="email"
                   value={Formdata.email}
-                  onChange={(e) => handleonChange(e)}
+                  onChange={(e) => {handleonChange(e);emailvalidaion(e)}}
                   placeholder="abc@gmail.com"
                 />
                 <div className="h-5 text-red-500 mt-1 ">
                   <h3 className="hidden" id="emailv1">
                     Please enter Email
+                  </h3>
+                  <h3 className="hidden" id="emailv2">
+                    enter a valid email
                   </h3>
                 </div>
               </div>
