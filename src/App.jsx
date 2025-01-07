@@ -18,25 +18,39 @@ export const AuthContext=createContext();
 
 function App() {
 const [isAuthenticated,setIsAuthenticated]=useState(false)
+const [user,setuser]=useState({})
 
 const login=()=>{
 
   localStorage.setItem("isLoggedIn",true)
   setIsAuthenticated(true)
-  console.log(isAuthenticated)
+  console.log("isauth",isAuthenticated)
 }
 const logout=()=>{
   setIsAuthenticated(false)
   localStorage.setItem("isLoggedIn",false)
 }
+const set_var=()=>{
+  const user_email=localStorage.getItem("email")
+  setuser((user)=>({...user,email:user_email}))
+  
+}
+
+// useEffect(()=>{
+//   set_var()
+// },[isAuthenticated])
+
 useEffect(()=>{
 const user_state=JSON.parse(localStorage.getItem("isLoggedIn"))
 setIsAuthenticated(user_state)
+set_var()
 },[])
+
+
 
   return (
    <>
-<AuthContext.Provider value={{isAuthenticated,login,logout}}>
+<AuthContext.Provider value={{isAuthenticated,user,login,logout}}>
 
 
   <div className='flex flex-row'>

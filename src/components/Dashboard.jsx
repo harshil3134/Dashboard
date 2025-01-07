@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 
 function Dashboard() {
-const {isAuthenticated,logout}=useContext(AuthContext)
+const {isAuthenticated,logout,user}=useContext(AuthContext)
 const navigate=useNavigate()
 
   const handlelogout=()=>{
@@ -40,7 +40,7 @@ const navigate=useNavigate()
                 <Search/>
               </div>
                <div className="w-full pl-10  flex justify-center">
-                  <User />
+                  <User u_details={user} />
                   <button className="px-4 py-2 w-fit h-fit bg-gray-200 mx-8 rounded-lg" onClick={()=>handlelogout()} >Logout</button>
 
                </div>
