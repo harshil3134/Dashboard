@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import { useEffect, useState } from "react";
 import Err_display from "./validation/Err_display.jsx";
+import axios from "axios";
 
 function AddEmployee() {
   const [Formdata, setFormData] = useState({
@@ -19,11 +20,21 @@ function AddEmployee() {
   const [err, setErr] = useState({});
 
 
-  const submitform = (e) => {
+  const submitform = async (e) => {
     e.preventDefault();
     validatonforsubmit();
- 
-    console.log("form submitted")
+    console.log(Object.keys(err).length)
+    if(Object.keys(err).length===0)
+    {
+    
+    await axios.post('http://localhost:3000/form_data',{
+      data:Formdata
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then((data)=>console.log("form submited",data)).catch((err)=>(console.log(err)))
+  }
   };
 
   const validatonforsubmit = () => {
@@ -72,10 +83,11 @@ function AddEmployee() {
   const namevalidation = (value, name) => {
     console.log("Name validation call",value);
     //returns true if character is between 3 and 20 characters
-    const regex1 = /^[a-zA-Z][a-zA-Z0-9!@#$%^&*(),.?":{}|<>+-=_]{3,20}$/;
+    const regex1 = /^[a-zA-Z\s][a-zA-Z0-9!@#$%^&*(),.?":{}|<>+-=_\s]{3,20}$/;
+
 
     //return true if character in the field
-    const regex = /[^a-zA-z]/;
+    const regex = /[^a-z\sA-z]/;
 
     const iscorrlen = regex1.test(value);
     const ischar = regex.test(value);
@@ -96,7 +108,7 @@ function AddEmployee() {
   };
 
   const passwordvalidation = (value, key) => {
- 
+ console.log("password validation called")
     const regex1 = /^[a-zA-Z][a-zA-Z0-9!@#$%^&*(),.?":{}|<>+-=_]{7,23}$/;
     const regex2 = /[a-zA-Z]/;
     const regex3 = /[!@#$%^&*(),.?:{}|<>+-=_]/;
@@ -150,18 +162,19 @@ function AddEmployee() {
     if (Formdata?.name) {
       namevalidation(Formdata.name, "name");
     } 
+     if (Formdata?.email) {
+      emailvalidaion(Formdata.email, "email");
+    }
     if (Formdata?.password) {
       passwordvalidation(Formdata.password, "password");
     } 
-    if (Formdata?.email) {
-      emailvalidaion(Formdata.email, "email");
-    }
+   
   }, [Formdata]);
 
-  // useEffect(() => {
-  //   console.log("use effect err value");
-  //   console.log(err);
-  // }, [err]);
+  useEffect(() => {
+    console.log("use effect err value");
+    console.log(err);
+  }, [err]);
 
 
 
