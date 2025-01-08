@@ -11,6 +11,7 @@ import Register from './components/Register.jsx'
 import Login from './components/Login.jsx'
 import { createContext, useEffect, useState } from 'react'
 import AddEmployee from './components/AddEmployee.jsx'
+import ViewEmployee from './components/ViewEmployee.jsx'
 
 
 
@@ -66,6 +67,7 @@ set_var()
                 <Route path='calendar' element={<Calendar />} />
                 <Route path='payroll' element={<Payroll />} />  
                 <Route path='add_employee' element={<AddEmployee />} />
+                <Route path='view_employee' element={<ViewEmployee/>}/>
         </Route>
         
       </Routes>

@@ -28,3 +28,33 @@
                                            Name is incorrect format
                                     </h3>
                                </div>
+
+
+
+                               ///08-01
+
+                               checking for hobby explicitly not working
+
+                               return (
+                                   <tr className="border-b-2 border-gray-400 " key={index}>
+                                     {Object.keys(items.data)
+                                       .filter((val) => val != "file")
+                                       .map((val, index) => {
+                                         val == "hobby" ? (
+                                           <td className="py-3 text-center" key={index}>
+                                             {items.data.hobby.map((hobbyele,index) => {
+                                              return( <span key={index}>{hobbyele}</span>)
+                                             })}
+                                           </td>
+                                         ) : (
+                                           <td className="py-3 text-center" key={index}>
+                                             {items.data[val]}
+                                           </td>
+                                         );
+                                       })}
+                                     <td className="py-3 text-center" key={index}>
+                                       <Pencil className="inline mx-2" />
+                                       <Trash2 className="inline mx-2" />
+                                     </td>
+                                   </tr>
+                                 );

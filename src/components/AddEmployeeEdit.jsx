@@ -1,12 +1,12 @@
 import { CircleArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
-import Navbar from "./Navbar";
+
 import { useEffect, useState } from "react";
 import Err_display from "./validation/Err_display.jsx";
 import axios from "axios";
 
-function AddEmployee() {
+function AddEmployeeEdit({data,serverId,setIsPopup}) {
   const [Formdata, setFormData] = useState({
+    id:0,
     name: "",
     email: "",
     password: "",
@@ -32,15 +32,22 @@ const [idcount,setIdCount]=useState(0)
   };
 
   const sendreq=async()=>{
-    setIdCount((idcount)=>(idcount+1))
+  const id=serverId
  console.log("form submitted")
-      await axios.post('http://localhost:3000/form_data',{
-        data:{id:idcount,...Formdata}
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }).then((data)=>console.log("form submited",data)).catch((err)=>(console.log(err)))
+ const url = `http://localhost:3000/form_data/${id}`;
+ fetch(url, {
+   method: "PUT",
+   headers: {
+     "Content-Type": "application/json",
+   },
+   body:JSON.stringify({id:{id},data:Formdata})
+ })
+   .then((res) => {
+     return res.json();
+   })
+   .then((res) => console.log(res))
+   
+   .catch((err) => console.log(err));
     
   }
 
@@ -176,9 +183,23 @@ const [idcount,setIdCount]=useState(0)
     if (Formdata?.password) {
       passwordvalidation(Formdata.password, "password");
     } 
+    console.log("form",Formdata)
    
   }, [Formdata]);
 
+useEffect(()=>{
+Object.keys(data).map((item)=>{
+
+  if(item=="hobby")
+  {
+    const arr=data.hobby.map((ele)=>ele)
+setFormData((Formdata)=>({...Formdata,hobby:arr}))
+  }
+  else{
+  setFormData((Formdata)=>({...Formdata,[item]:data[item]}))
+  }
+})
+},[])
 
 useEffect(()=>{
 if(doSubmit)
@@ -192,14 +213,14 @@ if(doSubmit)
 },[err])
 
   return (
-    <div className="h-full w-full">
-      <Navbar />
+    <div className="fixed inset-0  backdrop-blur-sm h-full">
+   
 
       <div className="w-full h-full flex flex-col pl-72 ml-8">
         <div className="w-8 h-8 ml-4 mt-2">
-          <Link to="/dashboard" className="">
-            <CircleArrowLeft className="h-full w-full  " />
-          </Link>
+      
+            <CircleArrowLeft className="h-full w-full  "  onClick={()=>setIsPopup(false)}/>
+
         </div>
         <form
           className="bg-gray-100 w-1/2 h-2/3 min-h-60 mx-auto my-20 rounded-xl p-6 pl-16"
@@ -299,7 +320,7 @@ if(doSubmit)
                       id="Football"
                       value="Football"
                       className=" "
-                      // checked={Formdata.hobby[0] == true}
+                      checked={Formdata.hobby.includes('Football')}
                       onChange={(e) => handlecheckbox(e)}
                     />
                   </div>
@@ -314,7 +335,7 @@ if(doSubmit)
                       id="Reading"
                       value="Reading"
                       className=" "
-                      //checked={Formdata.hobby[1] == true}
+                      checked={Formdata.hobby.includes('Reading')}
                       onChange={(e) => handlecheckbox(e)}
                     />
                   </div>
@@ -328,7 +349,7 @@ if(doSubmit)
                       id="Gamming"
                       value="Gamming"
                       className=" "
-                      //checked={Formdata.hobby[2] == true}
+                      checked={Formdata.hobby.includes('Gamming')}
                       onChange={(e) => handlecheckbox(e)}
                     />
                   </div>
@@ -419,7 +440,7 @@ if(doSubmit)
 
           <div className="my-6">
             <button
-              className="bg-gray-400 w-1/4 py-2 rounded-xl "
+              className="bg-gray-400 w-1/4 py-2 mb-4 rounded-xl "
               type="submit"
             >
               Submit
@@ -431,4 +452,4 @@ if(doSubmit)
   );
 }
 
-export default AddEmployee;
+export default AddEmployeeEdit;
