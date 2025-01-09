@@ -96,8 +96,12 @@ setIsPopup(true);
                    
                     return (
                       <tr className="border-b-2 border-gray-400 " key={index}>
+                        <td className="py-3 text-center" key={index}>
+                                {index+1}
+                        </td>
                         {Object.keys(items.data)
-                          .filter((val) => val != "file")
+                          .filter((val) => (val != "file")&&(val!="id") )
+                          // .filter((val)=>(val!='id'))
                           .map((val, index) => {
                             return val == "hobby" ? (
                               <td className="py-3 text-center" key={index}>

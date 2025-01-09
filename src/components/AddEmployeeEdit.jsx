@@ -1,8 +1,7 @@
 import { CircleArrowLeft } from "lucide-react";
-
+import { useRef } from "react";
 import { useEffect, useState } from "react";
-import Err_display from "./validation/Err_display.jsx";
-import axios from "axios";
+import Err_display from "./validation/Err_display.jsx";             
 
 function AddEmployeeEdit({data,serverId,setIsPopup}) {
   const [Formdata, setFormData] = useState({
@@ -19,7 +18,7 @@ function AddEmployeeEdit({data,serverId,setIsPopup}) {
 
   const [err, setErr] = useState({});
 const [doSubmit,setDoSubmit]=useState(false)
-const [idcount,setIdCount]=useState(0)
+const modalRef=useRef();
 
 
   const submitform =async(e) => {
@@ -212,23 +211,34 @@ if(doSubmit)
   }
 },[err])
 
+
+const closeModal=(e)=>{
+console.log("event",e)
+if(e.target===modalRef.current)
+{
+  setIsPopup(false);
+  console.log("popup close click")
+}
+}
+
   return (
-    <div className="fixed inset-0  backdrop-blur-sm h-full">
+    <div className="fixed inset-0  backdrop-blur-sm h-full z-10"   >
    
 
-      <div className="w-full h-full flex flex-col pl-72 ml-8">
+      <div className="w-full h-full flex flex-col pl-72 ml-8" ref={modalRef} onClick={(e)=>closeModal(e)}>
         <div className="w-8 h-8 ml-4 mt-2">
       
             <CircleArrowLeft className="h-full w-full  "  onClick={()=>setIsPopup(false)}/>
 
         </div>
         <form
-          className="bg-gray-100 w-1/2 h-2/3 min-h-60 mx-auto my-20 rounded-xl p-6 pl-16"
+          className="bg-gray-100 w-1/2 h-2/3 min-h-60 mx-auto my-20 rounded-xl p-6 pl-16" 
+
           onSubmit={submitform}
           
         >
           <h3 className="text-3xl font-semibold font-sans mt-5">
-            Add Employee
+            Edit Employee
           </h3>
           <div className="flex flex-row mt-6">
             <div className="flex flex-col  gap-3 w-1/2  ">
